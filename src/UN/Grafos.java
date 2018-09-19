@@ -9,21 +9,49 @@ public class Grafos {
     static LinkedList<Vertice> lista = new LinkedList<Vertice>();
     static Queue<Vertice> prioridad = new LinkedList<>();
     
-    static int[][] M = {{0, 1, 1, 1, 0},
+    static int[][]  M = {{0, 1, 1, 1, 0},
                         {1, 0, 1, 1, 0},
                         {1, 1, 0, 0, 1},
                         {1, 1, 0, 0, 1},
-                        {0, 0, 1, 1, 0}};
+                        {0, 0, 1, 1, 0}},
+                    MPesos;
+    
+    
+    
     //DFS: 01243    
     //BFS: 01234
     static boolean[] visitados = new boolean[M.length];
+    
+    static void pesos()
+    {
+        MPesos = new int[M.length][M[0].length];
+        for (int i = 0; i < M.length; i++) {
+            for (int j = 0; j < M[i].length; j++) {
+                if (M[i][j]!=0)
+                    MPesos[i][j]= (int)(Math.random()*(20));
+                else     
+                    MPesos[i][j]= 0;
+            }
+        }
+    }
+    
+    static void mostrarpesos()
+    {
+        System.out.println("\nMATRIZ DE PESO DE ARISTAS\n");
+        for (int i = 0; i < M.length; i++) {
+            for (int j = 0; j < M[i].length; j++) {
+                System.out.print(MPesos[i][j]+"   ");
+            }
+            System.out.println("");
+        }
+    }
     
     public static void llenarLista(){
         for (int i = 0; i < M.length; i++) {
             Vertice tmp = new Vertice(i);
             for (int j = 0; j < M.length; j++) {
                 if(M[i][j]==1)
-                    tmp.adyacentes.add(j);
+                    tmp.adyacentes.add(new Vertice(j));
             }
             lista.add(tmp);
         }
@@ -31,8 +59,8 @@ public class Grafos {
     public static void visualizarLista(){
         for (Vertice vertice : lista) {
             System.out.print(vertice.getDato()+"->");
-            for (Integer e : vertice.getAdyacentes()) {
-                System.out.print(e+", ");
+            for (Vertice e : vertice.getAdyacentes()) {
+                System.out.print(e.dato+", ");
             }
             System.out.println("");
         }
@@ -78,11 +106,15 @@ public class Grafos {
         llenarLista();
         visualizarLista();
         
-        
+        pesos(); // asigna peso random a las "aristas" y ubica el peso de cuerdo la matriz de adyacencia
+        mostrarpesos();
+        dijkstra(lista.get(0));
+        System.out.println("\n"+prioridad);
     }
     
-    public static void dijkstra(Grafos g, Vertice o)
+    public static void dijkstra(Vertice o)
     {
+        o.distancia=0;
         Queue<Vertice> prioridad = new LinkedList<>();
         prioridad.add(o);
         Vertice u;
@@ -91,18 +123,42 @@ public class Grafos {
         while(!prioridad.isEmpty())
         {
             u=prioridad.remove();
+            
+                System.out.println("u = "+u.dato);
             while(u.visitado_dijkstra)
             {
                 u=prioridad.remove();
             }
             u.visitado_dijkstra = true;
             
-            for (Integer adyacente : u.getAdyacentes()) 
+                System.out.println("u = "+u.dato);
+            
+            for (Vertice ady : u.getAdyacentes()) 
             {
-                peso = getpeso(u,);
+                if (!ady.visitado_dijkstra)
+                {
+                    peso=MPesos[u.dato][ady.dato];//como c ac ?
+                    metodito(u,ady,peso);
+                }
             }
         }
         
+        
+    }
+    
+    static void metodito(Vertice actual,Vertice ady,int peso)
+    {
+        System.out.println(peso);
+        System.out.println(actual.distancia);
+        System.out.println(ady.distancia);
+        int tmp = actual.distancia+peso;
+        if (tmp< ady.distancia ) 
+        {
+            ady.distancia =tmp;
+            
+            prioridad.add(ady);
+            System.out.println(prioridad);
+        }
     }
     
 }

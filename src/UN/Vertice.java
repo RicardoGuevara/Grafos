@@ -13,22 +13,24 @@ import java.util.LinkedList;
  */
 public class Vertice {
     int dato;
-    LinkedList<Integer> adyacentes;
+    LinkedList<Vertice> adyacentes;
 
     public Vertice(int dato) {
         this.dato = dato;
-        adyacentes = new LinkedList<Integer>();
+        adyacentes = new LinkedList<Vertice>();
     }
 
     public int getDato() {
         return dato;
     }
 
-    public LinkedList<Integer> getAdyacentes() {
+    public LinkedList<Vertice> getAdyacentes() {
         return adyacentes;
     }
     
-    public int peso = 999999999;
+    public String toString(){return String.valueOf(this.dato);}
+    
+    public int distancia = 99999;
     public boolean visitado_dijkstra = false;
     
 }
