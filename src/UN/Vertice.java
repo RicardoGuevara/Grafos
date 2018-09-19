@@ -28,5 +28,7 @@ public class Vertice {
         return adyacentes;
     }
     
+    public int peso = 999999999;
+    public boolean visitado_dijkstra = false;
     
 }

@@ -1,11 +1,13 @@
 
 package UN;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Grafos { 
     static LinkedList<Vertice> lista = new LinkedList<Vertice>();
+    static Queue<Vertice> prioridad = new LinkedList<>();
     
     static int[][] M = {{0, 1, 1, 1, 0},
                         {1, 0, 1, 1, 0},
@@ -68,8 +70,7 @@ public class Grafos {
         System.out.println("DFS:");
         DFS(0);
         
-        for (int i = 0; i < visitados.length; i++) 
-            visitados[i]=false;
+        visitados = new boolean[M.length];
         System.out.println("\n\rBFS:");
         BFS(0);
         
@@ -80,5 +81,28 @@ public class Grafos {
         
     }
     
+    public static void dijkstra(Grafos g, Vertice o)
+    {
+        Queue<Vertice> prioridad = new LinkedList<>();
+        prioridad.add(o);
+        Vertice u;
+        int peso;
+        
+        while(!prioridad.isEmpty())
+        {
+            u=prioridad.remove();
+            while(u.visitado_dijkstra)
+            {
+                u=prioridad.remove();
+            }
+            u.visitado_dijkstra = true;
+            
+            for (Integer adyacente : u.getAdyacentes()) 
+            {
+                peso = getpeso(u,);
+            }
+        }
+        
+    }
     
 }
