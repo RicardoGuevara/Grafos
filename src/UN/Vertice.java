@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package grafos;
+package UN;
 
 import java.util.LinkedList;
 
-
 /**
  *
- * @author cmrocha
+ * @author jesusdavide
  */
 public class Vertice {
     int dato;
-    LinkedList<Integer> Adyacencias;
-    
+    LinkedList<Integer> adyacentes;
+
     public Vertice(int dato) {
         this.dato = dato;
-        Adyacencias = new LinkedList<Integer>();
-    }
-
-    public LinkedList<Integer> getAdyacencias() {
-        return Adyacencias;
+        adyacentes = new LinkedList<Integer>();
     }
 
     public int getDato() {
         return dato;
     }
+
+    public LinkedList<Integer> getAdyacentes() {
+        return adyacentes;
+    }
+    
     
 }
